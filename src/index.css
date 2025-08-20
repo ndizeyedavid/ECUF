@@ -9,49 +9,53 @@ All colors MUST be HSL.
 @layer base {
   :root {
     --background: 0 0% 100%;
-    --foreground: 0 0% 15%;
+    --foreground: 215 25% 27%;
 
     --card: 0 0% 100%;
-    --card-foreground: 0 0% 15%;
+    --card-foreground: 215 25% 27%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 15%;
+    --popover-foreground: 215 25% 27%;
 
-    --primary: 0 65% 35%;
+    --primary: 215 100% 20%;
     --primary-foreground: 0 0% 98%;
 
-    --secondary: 45 95% 50%;
-    --secondary-foreground: 0 65% 35%;
+    --secondary: 35 80% 55%;
+    --secondary-foreground: 215 100% 20%;
 
-    --muted: 0 0% 96%;
-    --muted-foreground: 0 0% 45%;
+    --muted: 215 20% 96%;
+    --muted-foreground: 215 10% 45%;
 
-    --accent: 45 95% 50%;
-    --accent-foreground: 0 65% 35%;
+    --accent: 35 80% 55%;
+    --accent-foreground: 215 100% 20%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
 
-    --border: 0 0% 90%;
-    --input: 0 0% 90%;
-    --ring: 0 65% 35%;
+    --border: 215 20% 90%;
+    --input: 215 20% 90%;
+    --ring: 215 100% 20%;
 
     --radius: 0.75rem;
 
-    /* Custom ECUF colors */
-    --ecuf-maroon: 0 65% 35%;
-    --ecuf-gold: 45 95% 50%;
-    --ecuf-cream: 45 50% 95%;
-    --ecuf-dark: 0 0% 15%;
+    /* Custom ECUF colors - New Beautiful Palette */
+    --ecuf-navy: 215 100% 20%;
+    --ecuf-gold: 35 80% 55%;
+    --ecuf-cream: 35 30% 96%;
+    --ecuf-sage: 140 30% 60%;
+    --ecuf-dark: 215 25% 27%;
+    --ecuf-light: 35 50% 98%;
     
     /* Gradients */
-    --gradient-hero: linear-gradient(135deg, hsl(var(--ecuf-maroon)), hsl(0 50% 25%));
-    --gradient-accent: linear-gradient(135deg, hsl(var(--ecuf-gold)), hsl(45 80% 40%));
-    --gradient-subtle: linear-gradient(180deg, hsl(var(--background)), hsl(var(--ecuf-cream)));
+    --gradient-hero: linear-gradient(135deg, hsl(215 100% 20%), hsl(215 80% 15%));
+    --gradient-accent: linear-gradient(135deg, hsl(35 80% 55%), hsl(35 70% 45%));
+    --gradient-subtle: linear-gradient(180deg, hsl(0 0% 100%), hsl(35 30% 96%));
+    --gradient-sage: linear-gradient(135deg, hsl(140 30% 60%), hsl(140 40% 50%));
 
     /* Shadows */
-    --shadow-elegant: 0 10px 30px -10px hsl(var(--ecuf-maroon) / 0.3);
-    --shadow-gold: 0 5px 20px hsl(var(--ecuf-gold) / 0.4);
+    --shadow-elegant: 0 10px 30px -10px hsl(215 100% 20% / 0.25);
+    --shadow-gold: 0 5px 20px hsl(35 80% 55% / 0.4);
+    --shadow-sage: 0 8px 25px hsl(140 30% 60% / 0.3);
 
     /* Transitions */
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);

@@ -10,6 +10,8 @@ import Hero from "./components/Hero";
 import About from "./components/About";
 import Services from "./components/Services";
 import Events from "./components/Events";
+import Gallery from "./components/Gallery";
+import Videos from "./components/Videos";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
 
@@ -29,6 +31,8 @@ const App = () => (
               <About />
               <Services />
               <Events />
+              <Gallery />
+              <Videos />
               <Contact />
               <Footer />
             </div>

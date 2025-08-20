@@ -63,10 +63,12 @@ export default {
 					ring: 'hsl(var(--sidebar-ring))'
 				},
 				ecuf: {
-					maroon: 'hsl(var(--ecuf-maroon))',
+					navy: 'hsl(var(--ecuf-navy))',
 					gold: 'hsl(var(--ecuf-gold))',
 					cream: 'hsl(var(--ecuf-cream))',
-					dark: 'hsl(var(--ecuf-dark))'
+					sage: 'hsl(var(--ecuf-sage))',
+					dark: 'hsl(var(--ecuf-dark))',
+					light: 'hsl(var(--ecuf-light))'
 				}
 			},
 			backgroundImage: {
