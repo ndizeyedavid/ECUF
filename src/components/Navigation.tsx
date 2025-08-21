@@ -1,19 +1,35 @@
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useActiveSection } from "@/hooks/useActiveSection";
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const activeSection = useActiveSection();
 
   const navItems = [
-    { name: "Home", href: "#" },
-    { name: "About", href: "#about" },
-    { name: "Services", href: "#services" },
-    { name: "Events", href: "#events" },
-    { name: "Gallery", href: "#gallery" },
-    { name: "Videos", href: "#videos" },
-    { name: "Contact", href: "#contact" },
+    { name: "Home", href: "#", section: "hero" },
+    { name: "About", href: "#about", section: "about" },
+    { name: "Services", href: "#services", section: "services" },
+    { name: "Events", href: "#events", section: "events" },
+    { name: "Gallery", href: "#gallery", section: "gallery" },
+    { name: "Videos", href: "#videos", section: "videos" },
+    { name: "Contact", href: "#contact", section: "contact" },
   ];
+
+  const handleSmoothScroll = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    e.preventDefault();
+    if (href === "#") {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+      const target = document.querySelector(href);
+      if (target) {
+        const offsetTop = target.getBoundingClientRect().top + window.pageYOffset - 80;
+        window.scrollTo({ top: offsetTop, behavior: 'smooth' });
+      }
+    }
+    setIsOpen(false);
+  };
 
   return (
     <nav className="fixed top-0 w-full bg-white/95 backdrop-blur-sm border-b border-border z-50 shadow-sm">
@@ -36,7 +52,12 @@ const Navigation = () => {
                 <a
                   key={item.name}
                   href={item.href}
-                  className="text-foreground hover:text-primary px-3 py-2 text-sm font-medium transition-colors duration-200 hover:bg-ecuf-cream rounded-md"
+                  onClick={(e) => handleSmoothScroll(e, item.href)}
+                  className={`px-3 py-2 text-sm font-medium transition-colors duration-200 rounded-md ${
+                    activeSection === item.section
+                      ? 'text-primary bg-primary/10 font-semibold'
+                      : 'text-foreground hover:text-primary hover:bg-primary/5'
+                  }`}
                 >
                   {item.name}
                 </a>
@@ -66,8 +87,12 @@ const Navigation = () => {
               <a
                 key={item.name}
                 href={item.href}
-                className="text-foreground hover:text-primary block px-3 py-2 text-base font-medium transition-colors duration-200 hover:bg-ecuf-cream rounded-md"
-                onClick={() => setIsOpen(false)}
+                onClick={(e) => handleSmoothScroll(e, item.href)}
+                className={`block px-3 py-2 text-base font-medium transition-colors duration-200 rounded-md ${
+                  activeSection === item.section
+                    ? 'text-primary bg-primary/10 font-semibold'
+                    : 'text-foreground hover:text-primary hover:bg-primary/5'
+                }`}
               >
                 {item.name}
               </a>
