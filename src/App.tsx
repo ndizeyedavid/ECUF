@@ -7,6 +7,7 @@ import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import Admissions from "./pages/Admissions";
 import Faculty from "./pages/Faculty";
+import CalendarPage from "./pages/Calendar";
 import Navigation from "./components/Navigation";
 import Hero from "./components/Hero";
 import About from "./components/About";
@@ -41,6 +42,7 @@ const App = () => (
           } />
           <Route path="/admissions" element={<Admissions />} />
           <Route path="/faculty" element={<Faculty />} />
+          <Route path="/calendar" element={<CalendarPage />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

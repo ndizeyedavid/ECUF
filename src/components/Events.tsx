@@ -135,8 +135,8 @@ const Events = () => {
             <Button size="lg" className="flex-1">
               Subscribe to Newsletter
             </Button>
-            <Button size="lg" variant="outline" className="flex-1">
-              View Full Calendar
+            <Button size="lg" variant="outline" className="flex-1" asChild>
+              <a href="/calendar">View Full Calendar</a>
             </Button>
           </div>
         </div>
