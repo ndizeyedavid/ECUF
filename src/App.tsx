@@ -21,34 +21,34 @@ import Footer from "./components/Footer";
 const queryClient = new QueryClient();
 
 const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={
-            <div className="min-h-screen">
-              <Navigation />
-              <Hero />
-              <About />
-              <Services />
-              <Events />
-              <Gallery />
-              <Videos />
-              <Contact />
-              <Footer />
-            </div>
-          } />
-          <Route path="/admissions" element={<Admissions />} />
-          <Route path="/faculty" element={<Faculty />} />
-          <Route path="/calendar" element={<CalendarPage />} />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </BrowserRouter>
-    </TooltipProvider>
-  </QueryClientProvider>
+    <QueryClientProvider client={queryClient}>
+        <TooltipProvider>
+            <Toaster />
+            <Sonner />
+            <BrowserRouter>
+                <Routes>
+                    <Route
+                        path="/"
+                        element={
+                            <div className="min-h-screen">
+                                <Navigation />
+                                <Hero />
+                                <About />
+                                <Services />
+                                <Events />
+                                <Gallery />
+                                <Videos />
+                                <Contact />
+                                <Footer />
+                            </div>
+                        }
+                    />
+                    <Route path="/calendar" element={<CalendarPage />} />
+                    <Route path="*" element={<NotFound />} />
+                </Routes>
+            </BrowserRouter>
+        </TooltipProvider>
+    </QueryClientProvider>
 );
 
 export default App;
