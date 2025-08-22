@@ -1,4 +1,5 @@
 import { Facebook, Instagram, Twitter, Youtube, Mail, Phone, MapPin } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
     return (
@@ -46,28 +47,28 @@ const Footer = () => {
                         <h4 className="text-lg font-semibold mb-6">Quick Links</h4>
                         <ul className="space-y-3">
                             <li>
-                                <a
-                                    href="/calendar"
+                                <Link
+                                    to="/calendar"
                                     className="text-white/80 hover:text-white transition-colors"
                                 >
                                     Calendar
-                                </a>
+                                </Link>
                             </li>
                             <li>
-                                <a
-                                    href="#gallery"
+                                <Link
+                                    to="/#gallery"
                                     className="text-white/80 hover:text-white transition-colors"
                                 >
                                     Gallery
-                                </a>
+                                </Link>
                             </li>
                             <li>
-                                <a
-                                    href="#videos"
+                                <Link
+                                    to="/#videos"
                                     className="text-white/80 hover:text-white transition-colors"
                                 >
                                     Videos
-                                </a>
+                                </Link>
                             </li>
                         </ul>
                     </div>
