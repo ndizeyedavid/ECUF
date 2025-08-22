@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { ChevronDown } from "lucide-react";
+import { Highlighter } from "./highlighter";
 
 const Hero = () => {
     return (
@@ -24,7 +25,9 @@ const Hero = () => {
                 </h1>
                 <p className="text-xl md:text-2xl text-white/90 mb-8 max-w-2xl mx-auto leading-relaxed">
                     Strengthening faith, building community, and nurturing minds through
-                    Christ's love
+                    <Highlighter action="underline" color="#FF9800">
+                        Christ's love
+                    </Highlighter>
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
                     <Button

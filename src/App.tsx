@@ -8,6 +8,8 @@ import NotFound from "./pages/NotFound";
 import Admissions from "./pages/Admissions";
 import Faculty from "./pages/Faculty";
 import CalendarPage from "./pages/Calendar";
+import Login from "./pages/admin/Login";
+import Dashboard from "./pages/admin/Dashboard";
 import Navigation from "./components/Navigation";
 import Hero from "./components/Hero";
 import About from "./components/About";
@@ -21,34 +23,38 @@ import Footer from "./components/Footer";
 const queryClient = new QueryClient();
 
 const App = () => (
-    <QueryClientProvider client={queryClient}>
-        <TooltipProvider>
-            <Toaster />
-            <Sonner />
-            <BrowserRouter>
-                <Routes>
-                    <Route
-                        path="/"
-                        element={
-                            <div className="min-h-screen">
-                                <Navigation />
-                                <Hero />
-                                <About />
-                                <Services />
-                                <Events />
-                                <Gallery />
-                                <Videos />
-                                <Contact />
-                                <Footer />
-                            </div>
-                        }
-                    />
-                    <Route path="/calendar" element={<CalendarPage />} />
-                    <Route path="*" element={<NotFound />} />
-                </Routes>
-            </BrowserRouter>
-        </TooltipProvider>
-    </QueryClientProvider>
+  <QueryClientProvider client={queryClient}>
+    <TooltipProvider>
+      <Toaster />
+      <Sonner />
+      <BrowserRouter>
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <div className="min-h-screen">
+                <Navigation />
+                <Hero />
+                <About />
+                <Services />
+                <Events />
+                <Gallery />
+                <Videos />
+                <Contact />
+                <Footer />
+              </div>
+            }
+          />
+          <Route path="/calendar" element={<CalendarPage />} />
+          <Route path="/admissions" element={<Admissions />} />
+          <Route path="/faculty" element={<Faculty />} />
+          <Route path="/admin/login" element={<Login />} />
+          <Route path="/admin/dashboard" element={<Dashboard />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </BrowserRouter>
+    </TooltipProvider>
+  </QueryClientProvider>
 );
 
 export default App;
