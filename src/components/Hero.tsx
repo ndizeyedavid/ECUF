@@ -1,10 +1,13 @@
 import { Button } from "@/components/ui/button";
 import { ChevronDown } from "lucide-react";
 import { Highlighter } from "./highlighter";
-
+import { motion } from "framer-motion";
 const Hero = () => {
     return (
-        <section
+        <motion.section
+            initial={{ y: 20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 0.6 }}
             id="hero"
             className="relative min-h-screen flex items-center justify-center overflow-hidden"
         >
@@ -51,7 +54,7 @@ const Hero = () => {
             <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-10 animate-bounce">
                 <ChevronDown className="h-8 w-8 text-white/70" />
             </div>
-        </section>
+        </motion.section>
     );
 };
 

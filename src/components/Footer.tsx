@@ -9,7 +9,7 @@ const Footer = () => {
                     <div className="lg:col-span-2">
                         <div className="flex items-center mb-6">
                             <img
-                                src="/lovable-uploads/2caa450f-2479-4b74-bf8e-0ca927f7b98a.png"
+                                src="/logo.jpg"
                                 alt="ESSA Logo"
                                 className="h-12 w-auto mr-4"
                             />

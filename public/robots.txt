@@ -1,14 +1,17 @@
-User-agent: Googlebot
-Allow: /
-
-User-agent: Bingbot
-Allow: /
-
-User-agent: Twitterbot
-Allow: /
-
-User-agent: facebookexternalhit
-Allow: /
-
+# ESSA Christian Unity Fellowship - ECUF
 User-agent: *
 Allow: /
+Allow: /about
+Allow: /services
+Allow: /events
+Allow: /gallery
+Allow: /videos
+Allow: /contact
+Allow: /calendar
+
+# Disallow admin and private areas
+Disallow: /admin/
+Disallow: /private/
+
+# Sitemap
+Sitemap: https://ecuf.rw/sitemap.xml

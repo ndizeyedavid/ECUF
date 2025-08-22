@@ -39,7 +39,7 @@ const Navigation = () => {
                     {/* Logo */}
                     <div className="flex-shrink-0 flex items-center">
                         <img
-                            src="/lovable-uploads/2caa450f-2479-4b74-bf8e-0ca927f7b98a.png"
+                            src="/logo.jpg"
                             alt="ESSA Logo"
                             className="h-10 w-auto mr-3"
                         />
