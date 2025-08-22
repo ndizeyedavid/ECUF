@@ -8,6 +8,7 @@ import {
     Image,
     LayoutDashboard,
     LogOut,
+    MessagesSquare,
     Settings,
     Users,
     Users2,
@@ -99,6 +100,16 @@ export default function Sidebar({
                             >
                                 <Video className="h-5 w-5" />
                                 Videos
+                            </div>
+                            <div
+                                id="users"
+                                className={`flex items-center p-2 border rounded-sm transition-all hover:bg-gray-200 cursor-pointer w-full justify-start gap-2 px-4 ${
+                                    activeTab === "messages" ? "bg-gray-200" : ""
+                                }`}
+                                onClick={() => handleTabClick("messages")}
+                            >
+                                <MessagesSquare className="h-5 w-5" />
+                                Messages
                             </div>
                         </div>
                     </div>

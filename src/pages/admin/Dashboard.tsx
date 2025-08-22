@@ -27,6 +27,7 @@ import VideoManager from "./components/VideoManager";
 import { fetchGalleries } from "@/services/gallery.service";
 import { fetchVideos } from "@/services/video.service";
 import { fetchEvents } from "@/services/event.service";
+import MessagesPanel from "./components/MessagesPanel";
 
 interface IStats {
     galleryItems: number;
@@ -124,6 +125,9 @@ const Dashboard = () => {
                         <TabsContent value="users"></TabsContent>
                         <TabsContent value="settings">
                             <SettingsPanel />
+                        </TabsContent>
+                        <TabsContent value="messages">
+                            <MessagesPanel />
                         </TabsContent>
                     </Tabs>
                 </div>
