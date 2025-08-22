@@ -29,7 +29,7 @@ const formSchema = z.object({
 type FormValues = z.infer<typeof formSchema>;
 
 const VideoManager = () => {
-    const [isLoading, setIsLoading] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
     const [videos, setVideos] = useState<Video[]>([]);
     const { toast } = useToast();
 
@@ -37,6 +37,7 @@ const VideoManager = () => {
         (async () => {
             const res: any = await fetchVideos();
             setVideos(res as Video[]);
+            setIsLoading(false);
         })();
     }, []);
 
@@ -145,7 +146,7 @@ const VideoManager = () => {
                                     className="w-full gap-2"
                                     disabled={isLoading}
                                 >
-                                    {isLoading ? "Adding..." : "Add Video"}
+                                    {isLoading ? "Loading..." : "Add Video"}
                                 </Button>
                             </form>
                         </Form>
@@ -158,6 +159,8 @@ const VideoManager = () => {
                     </CardHeader>
                     <CardContent>
                         <div className="space-y-4 overflow-auto h-[500px]">
+                            {isLoading && "Loading..."}
+
                             {videos.map((item) => (
                                 <div
                                     key={item.id}

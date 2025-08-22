@@ -34,7 +34,7 @@ const formSchema = z.object({
 type FormValues = z.infer<typeof formSchema>;
 
 const EventManager = () => {
-    const [isLoading, setIsLoading] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
     const [events, setEvents] = useState<Event[]>([]);
     const { toast } = useToast();
 
@@ -42,6 +42,7 @@ const EventManager = () => {
         (async () => {
             const res: any = await fetchEvents();
             setEvents(res as Event[]);
+            setIsLoading(false);
         })();
     }, []);
 
@@ -229,6 +230,8 @@ const EventManager = () => {
                     </CardHeader>
                     <CardContent>
                         <div className="space-y-4 w-[500px] overflow-auto">
+                            {isLoading && "Loading..."}
+
                             {events.map((event) => (
                                 <div
                                     key={event.id}

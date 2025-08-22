@@ -29,7 +29,7 @@ const formSchema = z.object({
 type FormValues = z.infer<typeof formSchema>;
 
 const GalleryManager = () => {
-    const [isLoading, setIsLoading] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
     const [gallarys, setGallarys] = useState<Gallery[]>([]);
     const { toast } = useToast();
 
@@ -37,6 +37,7 @@ const GalleryManager = () => {
         (async () => {
             const res: any = await fetchGalleries();
             setGallarys(res as Gallery[]);
+            setIsLoading(false);
         })();
     }, []);
 
@@ -201,7 +202,7 @@ const GalleryManager = () => {
                                     className="w-full gap-2"
                                     disabled={isLoading}
                                 >
-                                    {isLoading ? "Adding..." : "Add Image"}
+                                    {isLoading ? "Loading..." : "Add Image"}
                                 </Button>
                             </form>
                         </Form>
@@ -214,6 +215,8 @@ const GalleryManager = () => {
                     </CardHeader>
                     <CardContent>
                         <div className="space-y-4 overflow-auto h-[500px]">
+                            {isLoading && "Loading..."}
+
                             {gallarys.map((item) => (
                                 <div
                                     key={item.id}

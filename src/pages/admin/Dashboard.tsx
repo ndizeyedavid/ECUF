@@ -37,6 +37,7 @@ interface IStats {
 
 const Dashboard = () => {
     const [activeTab, setActiveTab] = useState("overview");
+    const [loading, setLoading] = useState<boolean>(true);
     const [statsCount, setStatsCount] = useState<IStats>({} as IStats);
     const navigate = useNavigate();
 
@@ -55,8 +56,9 @@ const Dashboard = () => {
                 videoItems: videoItems.length,
                 upcomingEvents: upcomingEvents.length,
             });
+            setLoading(false);
         })();
-    }, []);
+    }, [activeTab == "overview"]);
 
     const stats = [
         {
@@ -100,7 +102,7 @@ const Dashboard = () => {
                                         </CardHeader>
                                         <CardContent>
                                             <div className="text-2xl font-bold">
-                                                {stat.value}
+                                                {loading ? "Loading..." : stat.value}
                                             </div>
                                             <p className="text-xs text-muted-foreground">
                                                 {stat.description}

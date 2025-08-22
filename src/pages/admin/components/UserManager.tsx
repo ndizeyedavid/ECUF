@@ -41,7 +41,7 @@ const formSchema = z.object({
 type FormValues = z.infer<typeof formSchema>;
 
 const UserManager = () => {
-    const [isLoading, setIsLoading] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
     const [users, setUsers] = useState<TeamMember[]>([]);
     const { toast } = useToast();
 
@@ -49,6 +49,7 @@ const UserManager = () => {
         (async () => {
             const res: any = await fetchTeamMembers();
             setUsers(res as TeamMember[]);
+            setIsLoading(false);
         })();
     }, []);
 
@@ -234,7 +235,7 @@ const UserManager = () => {
                                     disabled={isLoading}
                                 >
                                     <UserPlus className="h-5 w-5" />
-                                    {isLoading ? "Adding..." : "Add User"}
+                                    {isLoading ? "Loading..." : "Add User"}
                                 </Button>
                             </form>
                         </Form>
@@ -247,6 +248,7 @@ const UserManager = () => {
                     </CardHeader>
                     <CardContent>
                         <div className="space-y-4 overflow-auto h-[500px]">
+                            {isLoading && "Loading..."}
                             {users.map((user) => (
                                 <div
                                     key={user.id}
