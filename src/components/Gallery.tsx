@@ -33,7 +33,7 @@ const Gallery = () => {
                 </div>
 
                 {/* Gallery Grid */}
-                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
                     {galleryItems.map((item, index) => (
                         <Card
                             key={item.id}
@@ -43,7 +43,7 @@ const Gallery = () => {
                                 <img
                                     src={pb.files.getURL(item, item.image)}
                                     alt={item.title}
-                                    className="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110"
+                                    className="w-full h-48 sm:h-56 lg:h-64 object-cover transition-transform duration-300 group-hover:scale-110"
                                 />
                                 <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
                                     <Button
@@ -57,19 +57,19 @@ const Gallery = () => {
                                     </Button>
                                 </div>
                             </div>
-                            <CardContent className="p-6">
-                                <h3 className="text-xl font-semibold text-primary mb-2">
+                            <CardContent className="p-4 sm:p-6">
+                                <h3 className="text-lg sm:text-xl font-semibold text-primary mb-2">
                                     {item.title}
                                 </h3>
-                                <div className="flex items-center text-sm text-muted-foreground mb-3">
-                                    <Calendar className="h-4 w-4 mr-2" />
+                                <div className="flex items-center text-xs sm:text-sm text-muted-foreground mb-3">
+                                    <Calendar className="h-4 w-4 mr-2 flex-shrink-0" />
                                     {new Date(item.created).toLocaleDateString("en-US", {
                                         year: "numeric",
                                         month: "long",
                                         day: "numeric",
                                     })}
                                 </div>
-                                <p className="text-muted-foreground leading-relaxed">
+                                <p className="text-sm sm:text-base text-muted-foreground leading-relaxed line-clamp-3">
                                     {item.description}
                                 </p>
                             </CardContent>
@@ -80,14 +80,14 @@ const Gallery = () => {
                 {/* Modal for Full Image View */}
                 {selectedImage !== null && (
                     <div className="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4">
-                        <div className="relative max-w-4xl max-h-[90vh] overflow-hidden rounded-lg">
+                        <div className="relative max-w-4xl h-[90vh] overflow-hidden rounded-lg">
                             <img
                                 src={pb.files.getURL(
                                     galleryItems[selectedImage],
                                     galleryItems[selectedImage].image
                                 )}
                                 alt={galleryItems[selectedImage].title}
-                                className="w-full h-full object-contain"
+                                className="w-full h-full object-cover"
                             />
                             <Button
                                 size="sm"

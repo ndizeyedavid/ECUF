@@ -36,13 +36,13 @@ const About = () => {
     ];
 
     return (
-        <section id="about" className="py-20 bg-subtle-gradient">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="text-center mb-16">
-                    <h2 className="text-4xl md:text-5xl font-bold text-primary mb-6">
+        <section id="about" className="py-12 sm:py-20 bg-subtle-gradient">
+            <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
+                <div className="text-center mb-8 sm:mb-16">
+                    <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-primary mb-4 sm:mb-6">
                         About ECUF
                     </h2>
-                    <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+                    <p className="text-lg sm:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
                         ESSA Christian Unity Fellowship is a vibrant community where faith
                         meets education, creating an environment where students, families,
                         and faculty grow together in Christ.
@@ -113,7 +113,7 @@ const About = () => {
 
                 <div className="bg-white rounded-2xl p-8 md:p-12 shadow-elegant">
                     <div className="grid md:grid-cols-2 gap-12 items-center">
-                        <div>
+                        <div className="w-[100%]">
                             <h3 className="text-3xl font-bold text-primary mb-6">
                                 Our Mission
                             </h3>
@@ -136,7 +136,7 @@ const About = () => {
                                 Experience the warmth of Christian fellowship and the
                                 excellence of faith-based education.
                             </p>
-                            <div className="flex justify-center">
+                            <div className="flex flex-col md:flex-row gap-5 justify-center">
                                 <div className="text-center">
                                     <div className="text-3xl font-bold text-primary">
                                         15+

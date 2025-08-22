@@ -53,7 +53,7 @@ const Services = () => {
                 </div>
 
                 {/* Main Services */}
-                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+                <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 mb-8 sm:mb-12 lg:mb-16">
                     {services.map((service, index) => (
                         <Card
                             key={index}
@@ -63,20 +63,20 @@ const Services = () => {
                                 <div className="flex justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
                                     {service.icon}
                                 </div>
-                                <CardTitle className="text-xl text-primary">
+                                <CardTitle className="text-lg sm:text-xl text-primary">
                                     {service.title}
                                 </CardTitle>
-                                <div className="flex items-center justify-center text-sm text-muted-foreground">
-                                    <Clock className="h-4 w-4 mr-2" />
+                                <div className="flex items-center justify-center text-xs sm:text-sm text-muted-foreground">
+                                    <Clock className="h-4 w-4 mr-2 flex-shrink-0" />
                                     {service.time}
                                 </div>
                             </CardHeader>
-                            <CardContent className="text-center">
-                                <p className="text-muted-foreground mb-4 leading-relaxed">
+                            <CardContent className="text-center px-3 sm:px-6">
+                                <p className="text-sm sm:text-base text-muted-foreground mb-4 leading-relaxed">
                                     {service.description}
                                 </p>
-                                <div className="flex items-center justify-center text-sm text-primary hidden">
-                                    <MapPin className="h-4 w-4 mr-1" />
+                                <div className="flex items-center justify-center text-xs sm:text-sm text-primary hidden">
+                                    <MapPin className="h-4 w-4 mr-1 flex-shrink-0" />
                                     {service.location}
                                 </div>
                             </CardContent>
@@ -85,23 +85,23 @@ const Services = () => {
                 </div>
 
                 {/* Additional Programs */}
-                <div className="bg-hero-gradient rounded-2xl p-8 md:p-12 text-white">
-                    <div className="text-center mb-12">
-                        <h3 className="text-3xl md:text-4xl font-bold mb-4">
+                <div className="bg-hero-gradient rounded-xl sm:rounded-2xl p-4 sm:p-8 lg:p-12 text-white">
+                    <div className="text-center mb-8 sm:mb-12">
+                        <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-3 sm:mb-4">
                             Educational Excellence
                         </h3>
-                        <p className="text-xl text-white/90 max-w-2xl mx-auto">
+                        <p className="text-base sm:text-lg lg:text-xl text-white/90 max-w-2xl mx-auto">
                             Comprehensive programs that integrate faith and learning
                         </p>
                     </div>
 
-                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+                    <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 lg:gap-6 mb-8 sm:mb-12">
                         {programs.map((program, index) => (
                             <div
                                 key={index}
-                                className="bg-white/10 backdrop-blur-sm rounded-lg p-6 text-center hover:bg-white/20 transition-colors duration-300"
+                                className="bg-white/10 backdrop-blur-sm rounded-lg p-4 sm:p-6 text-center hover:bg-white/20 transition-colors duration-300"
                             >
-                                <h4 className="font-semibold text-lg">{program}</h4>
+                                <h4 className="font-semibold text-base sm:text-lg">{program}</h4>
                             </div>
                         ))}
                     </div>

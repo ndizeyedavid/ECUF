@@ -68,31 +68,33 @@ const Contact = () => {
                     </p>
                 </div>
 
-                <div className="grid lg:grid-cols-2 gap-12">
+                <div className="grid lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-12">
                     {/* Contact Information */}
                     <div>
-                        <h3 className="text-2xl font-bold text-primary mb-8">
+                        <h3 className="text-xl sm:text-2xl font-bold text-primary mb-6 sm:mb-8">
                             Contact Information
                         </h3>
-                        <div className="grid sm:grid-cols-2 gap-6 mb-8">
+                        <div className="grid sm:grid-cols-2 gap-4 sm:gap-6 mb-6 sm:mb-8">
                             {contactInfo.map((info, index) => (
                                 <Card
                                     key={index}
                                     className="hover:shadow-elegant transition-shadow duration-300"
                                 >
-                                    <CardHeader className="pb-3">
-                                        <div className="flex items-center space-x-3">
-                                            {info.icon}
-                                            <CardTitle className="text-lg">
+                                    <CardHeader className="pb-2 sm:pb-3">
+                                        <div className="flex items-center space-x-2 sm:space-x-3">
+                                            <div className="flex-shrink-0">
+                                                {info.icon}
+                                            </div>
+                                            <CardTitle className="text-base sm:text-lg">
                                                 {info.title}
                                             </CardTitle>
                                         </div>
                                     </CardHeader>
-                                    <CardContent>
+                                    <CardContent className="px-4 sm:px-6">
                                         {info.details.map((detail, idx) => (
                                             <p
                                                 key={idx}
-                                                className="text-muted-foreground text-sm"
+                                                className="text-muted-foreground text-xs sm:text-sm"
                                             >
                                                 {detail}
                                             </p>
@@ -110,6 +112,7 @@ const Contact = () => {
                                 height="450"
                                 style={{ border: "0" }}
                                 loading="lazy"
+                                className="w-full h-full"
                                 referrerPolicy="no-referrer-when-downgrade"
                             ></iframe>
                         </div>

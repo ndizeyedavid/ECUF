@@ -48,34 +48,34 @@ const Events = () => {
                     </p>
                 </div>
 
-                <div className="grid md:grid-cols-2 gap-8 mb-12">
+                <div className="grid sm:grid-cols-2 gap-4 sm:gap-6 lg:gap-8 mb-8 sm:mb-12">
                     {events.map((event, index) => (
                         <Card
                             key={index}
                             className="group hover:shadow-elegant transition-all duration-300 hover:scale-105 overflow-hidden"
                         >
-                            <CardHeader className="pb-4">
+                            <CardHeader className="pb-3 sm:pb-4">
                                 <div className="flex justify-between items-start mb-2">
                                     <Badge className={getCategoryColor(event.category)}>
                                         {event.category}
                                     </Badge>
                                 </div>
-                                <CardTitle className="text-xl text-primary group-hover:text-primary/90 transition-colors">
+                                <CardTitle className="text-lg sm:text-xl text-primary group-hover:text-primary/90 transition-colors">
                                     {event.title}
                                 </CardTitle>
-                                <div className="flex flex-col sm:flex-row gap-2 text-sm text-muted-foreground">
+                                <div className="flex flex-col sm:flex-row gap-1.5 sm:gap-2 text-xs sm:text-sm text-muted-foreground">
                                     <div className="flex items-center">
-                                        <Calendar className="h-4 w-4 mr-2" />
+                                        <Calendar className="h-4 w-4 mr-1.5 sm:mr-2 flex-shrink-0" />
                                         {formatDate(event.date)}
                                     </div>
                                     <div className="flex items-center">
-                                        <Clock className="h-4 w-4 mr-2" />
+                                        <Clock className="h-4 w-4 mr-1.5 sm:mr-2 flex-shrink-0" />
                                         {event.time}
                                     </div>
                                 </div>
                             </CardHeader>
-                            <CardContent>
-                                <p className="text-muted-foreground mb-4 leading-relaxed">
+                            <CardContent className="px-4 sm:px-6">
+                                <p className="text-sm sm:text-base text-muted-foreground mb-4 leading-relaxed line-clamp-3">
                                     {event.description}
                                 </p>
                             </CardContent>
@@ -84,17 +84,22 @@ const Events = () => {
                 </div>
 
                 {/* Call to Action */}
-                <div className="bg-white rounded-2xl p-8 md:p-12 shadow-elegant text-center">
-                    <h3 className="text-3xl font-bold text-primary mb-4">
+                <div className="bg-white rounded-xl sm:rounded-2xl p-4 sm:p-8 lg:p-12 shadow-elegant text-center">
+                    <h3 className="text-2xl sm:text-3xl font-bold text-primary mb-3 sm:mb-4">
                         Stay Connected
                     </h3>
-                    <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
+                    <p className="text-base sm:text-lg text-muted-foreground mb-6 sm:mb-8 max-w-2xl mx-auto">
                         Don't miss out on our community events and educational programs.
                         Subscribe to our newsletter for the latest updates and
                         announcements.
                     </p>
-                    <div className="flex flex-col sm:flex-row gap-4 justify-center max-w-md mx-auto">
-                        <Button size="lg" variant="outline" className="flex-1" asChild>
+                    <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center max-w-md mx-auto">
+                        <Button
+                            size="lg"
+                            variant="outline"
+                            className="p-2 flex-1 text-sm sm:text-base"
+                            asChild
+                        >
                             <a href="/calendar">View Full Calendar</a>
                         </Button>
                     </div>

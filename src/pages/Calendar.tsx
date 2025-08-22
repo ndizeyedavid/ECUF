@@ -68,7 +68,7 @@ const CalendarPage = () => {
 
     return (
         <div className="min-h-screen bg-background">
-            <Navigation />
+            <Navigation isCalendar={true} />
 
             {/* Hero Section */}
             <section className="pt-32 pb-12 bg-hero-gradient text-white">

@@ -33,7 +33,7 @@ const App = () => (
                         path="/"
                         element={
                             <div className="min-h-screen">
-                                <Navigation />
+                                <Navigation isCalendar={false} />
                                 <Hero />
                                 <About />
                                 <Services />

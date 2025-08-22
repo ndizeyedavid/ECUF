@@ -3,40 +3,40 @@ import { Facebook, Instagram, Twitter, Youtube, Mail, Phone, MapPin } from "luci
 const Footer = () => {
     return (
         <footer className="bg-hero-gradient text-white">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-                <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-10 lg:gap-12 py-8 sm:py-12 lg:py-16">
                     {/* Logo and About */}
-                    <div className="lg:col-span-2">
-                        <div className="flex items-center mb-6">
+                    <div className="sm:col-span-2">
+                        <div className="flex flex-col sm:flex-row sm:items-center mb-4 sm:mb-6">
                             <img
                                 src="/logo.jpg"
                                 alt="ESSA Logo"
-                                className="h-12 w-auto mr-4"
+                                className="md:size-16 size-28 object-cover rounded-sm mb-3 mr-4"
                             />
                             <div>
-                                <h3 className="text-xl font-bold">
+                                <h3 className="text-lg sm:text-xl font-bold">
                                     ESSA Christian Unity Fellowship
                                 </h3>
-                                <p className="text-white/80 text-sm">ECUF</p>
+                                <p className="text-white/80 text-xs sm:text-sm">ECUF</p>
                             </div>
                         </div>
-                        <p className="text-white/90 leading-relaxed mb-6">
+                        <p className="text-white/90 text-sm sm:text-base leading-relaxed mb-4 sm:mb-6">
                             Building a community where faith meets education, creating an
                             environment where students, families, and faculty grow
                             together in Christ's love and wisdom.
                         </p>
-                        <div className="flex space-x-4">
+                        <div className="flex space-x-3 sm:space-x-4">
                             <a
                                 href="#"
                                 className="text-white/70 hover:text-white transition-colors"
                             >
-                                <Instagram className="h-6 w-6" />
+                                <Instagram className="h-5 w-5 sm:h-6 sm:w-6" />
                             </a>
                             <a
-                                href="#"
+                                href="https://youtube.com/@ecufchurch"
                                 className="text-white/70 hover:text-white transition-colors"
                             >
-                                <Youtube className="h-6 w-6" />
+                                <Youtube className="h-5 w-5 sm:h-6 sm:w-6" />
                             </a>
                         </div>
                     </div>
