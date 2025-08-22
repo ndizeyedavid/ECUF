@@ -1,93 +1,23 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { X, ZoomIn, Calendar, Users } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-
-// Import gallery images
-import gallery1 from "@/assets/gallery-1.jpg";
-import gallery2 from "@/assets/gallery-2.jpg";
-import gallery3 from "@/assets/gallery-3.jpg";
-import gallery4 from "@/assets/gallery-4.jpg";
-import gallery5 from "@/assets/gallery-5.jpg";
-import gallery6 from "@/assets/gallery-6.jpg";
+// @ts-ignore
+import { Gallery } from "@/types/gallery";
+import { fetchGalleries } from "@/services/gallery.service";
+import pb from "@/lib/pb";
 
 const Gallery = () => {
     const [selectedImage, setSelectedImage] = useState<number | null>(null);
-    const [selectedCategory, setSelectedCategory] = useState<string>("All");
+    const [galleryItems, setGalleryItems] = useState<Gallery[]>([] as Gallery[]);
 
-    const galleryItems = [
-        {
-            id: 1,
-            image: gallery1,
-            title: "Fellowship Gathering",
-            category: "Community",
-            date: "March 2024",
-            description:
-                "Our vibrant community coming together in fellowship and worship.",
-        },
-        {
-            id: 2,
-            image: gallery2,
-            title: "Graduation Ceremony",
-            category: "Education",
-            date: "June 2024",
-            description:
-                "Celebrating our students' academic achievements and spiritual growth.",
-        },
-        {
-            id: 3,
-            image: gallery3,
-            title: "Youth Ministry Event",
-            category: "Youth",
-            date: "February 2024",
-            description:
-                "Engaging our young people in faith-building activities and fellowship.",
-        },
-        {
-            id: 4,
-            image: gallery4,
-            title: "Community Service",
-            category: "Service",
-            date: "January 2024",
-            description: "Living out our faith through service to the local community.",
-        },
-        {
-            id: 5,
-            image: gallery5,
-            title: "Christmas Celebration",
-            category: "Events",
-            date: "December 2023",
-            description: "Celebrating the birth of our Savior with joy and thanksgiving.",
-        },
-        {
-            id: 6,
-            image: gallery6,
-            title: "Sunday School",
-            category: "Education",
-            date: "March 2024",
-            description:
-                "Teaching our children about God's love through engaging activities.",
-        },
-    ];
-
-    const categories = ["All", "Community", "Education", "Youth", "Service", "Events"];
-
-    const filteredItems =
-        selectedCategory === "All"
-            ? galleryItems
-            : galleryItems.filter((item) => item.category === selectedCategory);
-
-    const getCategoryColor = (category: string) => {
-        const colors: { [key: string]: string } = {
-            Community: "bg-primary text-primary-foreground",
-            Education: "bg-secondary text-secondary-foreground",
-            Youth: "bg-ecuf-sage text-white",
-            Service: "bg-accent text-accent-foreground",
-            Events: "bg-ecuf-gold text-ecuf-dark",
-        };
-        return colors[category] || "bg-muted text-muted-foreground";
-    };
+    useEffect(() => {
+        (async () => {
+            const res: any = await fetchGalleries();
+            setGalleryItems(res as Gallery[]);
+        })();
+    }, []);
 
     return (
         <section id="gallery" className="py-20 bg-background">
@@ -104,14 +34,14 @@ const Gallery = () => {
 
                 {/* Gallery Grid */}
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    {filteredItems.map((item, index) => (
+                    {galleryItems.map((item, index) => (
                         <Card
                             key={item.id}
                             className="group hover:shadow-elegant transition-all duration-300 overflow-hidden"
                         >
                             <div className="relative overflow-hidden">
                                 <img
-                                    src={item.image}
+                                    src={pb.files.getURL(item, item.image)}
                                     alt={item.title}
                                     className="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110"
                                 />
@@ -133,7 +63,11 @@ const Gallery = () => {
                                 </h3>
                                 <div className="flex items-center text-sm text-muted-foreground mb-3">
                                     <Calendar className="h-4 w-4 mr-2" />
-                                    {item.date}
+                                    {new Date(item.created).toLocaleDateString("en-US", {
+                                        year: "numeric",
+                                        month: "long",
+                                        day: "numeric",
+                                    })}
                                 </div>
                                 <p className="text-muted-foreground leading-relaxed">
                                     {item.description}
@@ -148,8 +82,11 @@ const Gallery = () => {
                     <div className="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4">
                         <div className="relative max-w-4xl max-h-[90vh] overflow-hidden rounded-lg">
                             <img
-                                src={filteredItems[selectedImage].image}
-                                alt={filteredItems[selectedImage].title}
+                                src={pb.files.getURL(
+                                    galleryItems[selectedImage],
+                                    galleryItems[selectedImage].image
+                                )}
+                                alt={galleryItems[selectedImage].title}
                                 className="w-full h-full object-contain"
                             />
                             <Button
@@ -162,10 +99,10 @@ const Gallery = () => {
                             </Button>
                             <div className="absolute bottom-0 left-0 right-0 bg-black/60 text-white p-6">
                                 <h3 className="text-xl font-semibold mb-2">
-                                    {filteredItems[selectedImage].title}
+                                    {galleryItems[selectedImage].title}
                                 </h3>
                                 <p className="text-white/90">
-                                    {filteredItems[selectedImage].description}
+                                    {galleryItems[selectedImage].description}
                                 </p>
                             </div>
                         </div>

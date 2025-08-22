@@ -1,7 +1,19 @@
 import { Book, Users, Heart, Star } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
+import { useEffect, useState } from "react";
+import { TeamMember } from "@/types/teamMeber";
+import { fetchTeamMembers } from "@/services/team.service";
+import pb from "@/lib/pb";
 
 const About = () => {
+    const [teams, setTeams] = useState<TeamMember[]>([] as TeamMember[]);
+    useEffect(() => {
+        (async () => {
+            const res: any = await fetchTeamMembers();
+            setTeams(res as TeamMember[]);
+        })();
+    }, []);
+
     const values = [
         {
             icon: <Book className="h-8 w-8 text-primary" />,
@@ -56,6 +68,47 @@ const About = () => {
                             </CardContent>
                         </Card>
                     ))}
+                </div>
+
+                {/* Teams Section */}
+                <div className="mb-16">
+                    <div className="text-center mb-16">
+                        <h2 className="text-4xl md:text-5xl font-bold text-primary mb-6">
+                            Meet the church leaders
+                        </h2>
+                        <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+                            A wonderful team of younglings who put all there effort and
+                            heart in doing God's work and delivering seamless worshipping
+                            to ECUF.
+                        </p>
+                    </div>
+                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        {teams.map((team, index) => (
+                            <Card
+                                key={index}
+                                className="text-center p-6 shadow-elegant hover:shadow-gold transition-all duration-300 hover:scale-105"
+                            >
+                                <CardContent className="pt-6">
+                                    <div className="flex justify-center mb-4">
+                                        <img
+                                            src={pb.files.getURL(team, team.image)}
+                                            alt={team.name}
+                                            className="w-24 h-24 rounded-full object-cover"
+                                        />
+                                    </div>
+                                    <h3 className="text-xl font-semibold text-primary mb-3">
+                                        {team.name}
+                                    </h3>
+                                    <p className="text-muted-foreground text-sm mb-2">
+                                        {team.role}
+                                    </p>
+                                    <p className="text-muted-foreground text-sm">
+                                        {team.phone}
+                                    </p>
+                                </CardContent>
+                            </Card>
+                        ))}
+                    </div>
                 </div>
 
                 <div className="bg-white rounded-2xl p-8 md:p-12 shadow-elegant">

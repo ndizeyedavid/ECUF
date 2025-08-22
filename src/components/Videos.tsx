@@ -2,76 +2,20 @@ import { Play, Calendar, Clock, Users } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { useEffect, useState } from "react";
+import { Video } from "@/types/video";
+import { fetchVideos } from "@/services/video.service";
 
 const Videos = () => {
-    const videoList = [
-        {
-            id: 1,
-            title: "Sunday Service - Faith in Action",
-            embedId: "dQw4w9WgXcQ", // Example YouTube ID
-            description:
-                "Join us for an inspiring Sunday service focusing on putting our faith into action in daily life.",
-            duration: "45:30",
-            date: "March 10, 2024",
-            category: "Worship",
-            views: "1.2K",
-        },
-        {
-            id: 2,
-            title: "Educational Excellence Seminar",
-            embedId: "dQw4w9WgXcQ",
-            description:
-                "Discover how we integrate Christian values with academic excellence in our educational programs.",
-            duration: "32:15",
-            date: "February 28, 2024",
-            category: "Education",
-            views: "850",
-        },
-        {
-            id: 3,
-            title: "Youth Ministry - Building Strong Foundations",
-            embedId: "dQw4w9WgXcQ",
-            description:
-                "Our youth pastor shares insights on building strong spiritual foundations for young people.",
-            duration: "28:45",
-            date: "February 15, 2024",
-            category: "Youth",
-            views: "920",
-        },
-        {
-            id: 4,
-            title: "Community Outreach Impact Story",
-            embedId: "dQw4w9WgXcQ",
-            description:
-                "See how our community outreach programs are making a difference in local neighborhoods.",
-            duration: "15:20",
-            date: "January 30, 2024",
-            category: "Service",
-            views: "650",
-        },
-        {
-            id: 5,
-            title: "Christmas Concert 2023 Highlights",
-            embedId: "dQw4w9WgXcQ",
-            description:
-                "Relive the beautiful moments from our annual Christmas concert celebration.",
-            duration: "52:10",
-            date: "December 20, 2023",
-            category: "Events",
-            views: "2.1K",
-        },
-        {
-            id: 6,
-            title: "Bible Study - Living with Purpose",
-            embedId: "dQw4w9WgXcQ",
-            description:
-                "Weekly Bible study session exploring how to live with purpose according to God's plan.",
-            duration: "40:30",
-            date: "March 5, 2024",
-            category: "Study",
-            views: "750",
-        },
-    ];
+    const [videoList, setVideoList] = useState<Video[]>([] as Video[]);
+    const [loading, setLoading] = useState<boolean>(true);
+    useEffect(() => {
+        (async () => {
+            const res: any = await fetchVideos();
+            setVideoList(res as Video[]);
+            setLoading(false);
+        })();
+    }, []);
 
     return (
         <section id="videos" className="py-20 bg-subtle-gradient">
@@ -85,86 +29,112 @@ const Videos = () => {
                         anywhere
                     </p>
                 </div>
-
-                {/* Featured Video */}
-                <div className="mb-16">
-                    <Card className="overflow-hidden shadow-elegant">
-                        <div className="aspect-video relative">
-                            <iframe
-                                className="w-full h-full"
-                                src={`https://www.youtube.com/embed/${videoList[0].embedId}?rel=0`}
-                                title={videoList[0].title}
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                allowFullScreen
-                            ></iframe>
-                        </div>
-                        <CardContent className="p-8">
-                            <div className="flex flex-wrap items-center gap-3 mb-4">
-                                <div className="flex items-center text-sm text-muted-foreground">
-                                    <Calendar className="h-4 w-4 mr-2" />
-                                    {videoList[0].date}
-                                </div>
-                                <div className="flex items-center text-sm text-muted-foreground">
-                                    <Clock className="h-4 w-4 mr-2" />
-                                    {videoList[0].duration}
-                                </div>
-                            </div>
-                            <h3 className="text-2xl font-bold text-primary mb-4">
-                                {videoList[0].title}
-                            </h3>
-                            <p className="text-muted-foreground leading-relaxed">
-                                {videoList[0].description}
-                            </p>
-                        </CardContent>
-                    </Card>
-                </div>
-
-                {/* Video Grid */}
-                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    {videoList.slice(1).map((video) => (
-                        <Card
-                            key={video.id}
-                            className="group hover:shadow-elegant transition-all duration-300 hover:scale-105 overflow-hidden"
-                        >
-                            <div className="relative aspect-video">
-                                <img
-                                    src={`https://img.youtube.com/vi/${video.embedId}/maxresdefault.jpg`}
-                                    alt={video.title}
-                                    className="w-full h-full object-cover"
-                                />
-                                <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                                    <Button
-                                        size="lg"
-                                        variant="secondary"
-                                        className="rounded-full p-4"
-                                        onClick={() =>
-                                            window.open(
-                                                `https://www.youtube.com/watch?v=${video.embedId}`,
-                                                "_blank"
-                                            )
-                                        }
-                                    >
-                                        <Play className="h-6 w-6" />
-                                    </Button>
-                                </div>
-                            </div>
-                            <CardContent className="p-6">
-                                <h3 className="text-lg font-semibold text-primary mb-3 line-clamp-2">
-                                    {video.title}
-                                </h3>
-                                <p className="text-muted-foreground text-sm mb-4 line-clamp-3">
-                                    {video.description}
-                                </p>
-                                <div className="flex items-center justify-between text-xs text-muted-foreground">
-                                    <div className="flex items-center">
-                                        <Calendar className="h-3 w-3 mr-1" />
-                                        {video.date}
+                {loading ? (
+                    "loading..."
+                ) : (
+                    <>
+                        <div className="mb-16">
+                            <Card className="overflow-hidden shadow-elegant">
+                                <div className="aspect-video relative">
+                                    <div className="relative aspect-video">
+                                        <img
+                                            src={`https://img.youtube.com/vi/${
+                                                videoList[0].youtubeLink.split("v=")[1]
+                                            }/mqdefault.jpg`}
+                                            alt={videoList[0].title}
+                                            className="w-full h-full object-cover"
+                                        />
+                                        <div className="absolute inset-0 bg-black/40 flex items-center justify-center  group-hover:opacity-100 transition-opacity duration-300">
+                                            <Button
+                                                size="lg"
+                                                variant="secondary"
+                                                className="rounded-full p-4"
+                                                onClick={() =>
+                                                    window.open(
+                                                        `${videoList[0].youtubeLink}`,
+                                                        "_blank"
+                                                    )
+                                                }
+                                            >
+                                                <Play className="h-6 w-6" />
+                                            </Button>
+                                        </div>
                                     </div>
                                 </div>
-                            </CardContent>
-                        </Card>
-                    ))}
-                </div>
+                                <CardContent className="p-8">
+                                    <div className="flex flex-wrap items-center gap-3 mb-4">
+                                        <div className="flex items-center text-sm text-muted-foreground">
+                                            <Calendar className="h-4 w-4 mr-2" />
+                                            {new Date(
+                                                videoList[0].created
+                                            ).toLocaleDateString("en-US", {
+                                                year: "numeric",
+                                                month: "long",
+                                                day: "numeric",
+                                            })}
+                                        </div>
+                                    </div>
+                                    <h3 className="text-2xl font-bold text-primary mb-4">
+                                        {videoList[0].title}
+                                    </h3>
+                                    <p className="text-muted-foreground leading-relaxed">
+                                        {videoList[0].description}
+                                    </p>
+                                </CardContent>
+                            </Card>
+                        </div>
+
+                        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                            {videoList.slice(1).map((video) => (
+                                <Card
+                                    key={video.id}
+                                    className="group hover:shadow-elegant transition-all duration-300 hover:scale-105 overflow-hidden"
+                                >
+                                    <div className="relative aspect-video">
+                                        <img
+                                            src={`https://img.youtube.com/vi/${
+                                                video.youtubeLink.split("v=")[1]
+                                            }/mqdefault.jpg`}
+                                            alt={video.title}
+                                            className="w-full h-full object-cover"
+                                        />
+                                        <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                            <Button
+                                                size="lg"
+                                                variant="secondary"
+                                                className="rounded-full p-4"
+                                                onClick={() =>
+                                                    window.open(
+                                                        `${video.youtubeLink}`,
+                                                        "_blank"
+                                                    )
+                                                }
+                                            >
+                                                <Play className="h-6 w-6" />
+                                            </Button>
+                                        </div>
+                                    </div>
+                                    <CardContent className="p-6">
+                                        <h3 className="text-lg font-semibold text-primary mb-3 line-clamp-2">
+                                            {video.title}
+                                        </h3>
+                                        <p className="text-muted-foreground text-sm mb-4 line-clamp-3">
+                                            {video.description}
+                                        </p>
+                                        <div className="flex items-center justify-between text-xs text-muted-foreground">
+                                            <div className="flex items-center">
+                                                <Calendar className="h-3 w-3 mr-1" />
+                                                {new Date(
+                                                    video.created
+                                                ).toLocaleDateString()}
+                                            </div>
+                                        </div>
+                                    </CardContent>
+                                </Card>
+                            ))}
+                        </div>
+                    </>
+                )}
 
                 {/* Call to Action */}
                 <div className="text-center mt-16">
@@ -181,7 +151,7 @@ const Videos = () => {
                             variant="secondary"
                             className="text-lg px-8 py-6"
                             onClick={() =>
-                                window.open("https://youtube.com/@ecuf", "_blank")
+                                window.open("https://youtube.com/@ecufchurch", "_blank")
                             }
                         >
                             Subscribe on YouTube

@@ -2,52 +2,20 @@ import { Calendar, Clock, MapPin, Users } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { fetchEvents } from "@/services/event.service";
+import { Event } from "@/types/event";
+import { useEffect, useState } from "react";
 
 const Events = () => {
-    const upcomingEvents = [
-        {
-            date: "2024-03-15",
-            time: "6:00 PM",
-            title: "Annual Thanksgiving Service",
-            description:
-                "Join us for a special evening of gratitude, worship, and fellowship as we give thanks for God's blessings.",
-            location: "Main Chapel",
-            category: "Worship",
-            attendees: 150,
-        },
-        {
-            date: "2024-03-20",
-            time: "10:00 AM",
-            title: "Bible Study",
-            description:
-                "Discover innovative teaching methods that integrate faith and learning for academic success.",
-            location: "Main Chapel",
-            category: "Education",
-            attendees: 75,
-        },
-        {
-            date: "2024-03-25",
-            time: "2:00 PM",
-            title: "Community Outreach Day",
-            description:
-                "Make a difference in our community through various service projects and volunteer opportunities.",
-            location: "Celpar",
-            category: "Service",
-            attendees: 100,
-        },
-        {
-            date: "2024-04-01",
-            time: "7:00 PM",
-            title: "Youth Leadership Conference",
-            description:
-                "Empowering young leaders with Christian values and practical leadership skills.",
-            location: "Main Chapel",
-            category: "Youth",
-            attendees: 60,
-        },
-    ];
+    const [events, setEvents] = useState<Event[]>([] as Event[]);
+    useEffect(() => {
+        (async () => {
+            const res: any = await fetchEvents();
+            setEvents(res as Event[]);
+        })();
+    }, []);
 
-    const formatDate = (dateString: string) => {
+    const formatDate = (dateString: Date) => {
         const date = new Date(dateString);
         return date.toLocaleDateString("en-US", {
             weekday: "long",
@@ -81,7 +49,7 @@ const Events = () => {
                 </div>
 
                 <div className="grid md:grid-cols-2 gap-8 mb-12">
-                    {upcomingEvents.map((event, index) => (
+                    {events.map((event, index) => (
                         <Card
                             key={index}
                             className="group hover:shadow-elegant transition-all duration-300 hover:scale-105 overflow-hidden"
@@ -91,12 +59,6 @@ const Events = () => {
                                     <Badge className={getCategoryColor(event.category)}>
                                         {event.category}
                                     </Badge>
-                                    <div className="text-right text-sm text-muted-foreground">
-                                        <div className="flex items-center">
-                                            <Users className="h-4 w-4 mr-1" />
-                                            {event.attendees} expected
-                                        </div>
-                                    </div>
                                 </div>
                                 <CardTitle className="text-xl text-primary group-hover:text-primary/90 transition-colors">
                                     {event.title}
@@ -116,12 +78,6 @@ const Events = () => {
                                 <p className="text-muted-foreground mb-4 leading-relaxed">
                                     {event.description}
                                 </p>
-                                <div className="flex items-center justify-between">
-                                    <div className="flex items-center text-sm text-primary">
-                                        <MapPin className="h-4 w-4 mr-1" />
-                                        {event.location}
-                                    </div>
-                                </div>
                             </CardContent>
                         </Card>
                     ))}

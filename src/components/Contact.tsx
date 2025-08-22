@@ -3,8 +3,35 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-
+import { useForm } from "react-hook-form";
+import { Message } from "@/types/message";
+import { createMessage } from "@/services/message.service";
+import { toast } from "@/hooks/use-toast";
+import { useState } from "react";
 const Contact = () => {
+    const [loading, setLoading] = useState<boolean>(false);
+    const { register, handleSubmit, reset } = useForm();
+
+    async function sendMessage(data: Message) {
+        try {
+            setLoading(true);
+            await createMessage(data);
+            toast({
+                title: "Success",
+                description: "Message sent successfully",
+            });
+            reset();
+        } catch (error: any) {
+            console.log(error.response);
+            toast({
+                title: "Error",
+                description: error.message,
+            });
+        } finally {
+            setLoading(false);
+        }
+    }
+
     const contactInfo = [
         {
             icon: <MapPin className="h-6 w-6 text-primary" />,
@@ -89,7 +116,7 @@ const Contact = () => {
                     </div>
 
                     {/* Contact Form */}
-                    <div>
+                    <form onSubmit={handleSubmit(sendMessage)}>
                         <Card className="shadow-elegant">
                             <CardHeader>
                                 <CardTitle className="text-2xl text-primary">
@@ -112,6 +139,7 @@ const Contact = () => {
                                         <Input
                                             id="firstName"
                                             placeholder="Your first name"
+                                            {...register("firstName")}
                                         />
                                     </div>
                                     <div>
@@ -124,6 +152,7 @@ const Contact = () => {
                                         <Input
                                             id="lastName"
                                             placeholder="Your last name"
+                                            {...register("lastName")}
                                         />
                                     </div>
                                 </div>
@@ -139,6 +168,7 @@ const Contact = () => {
                                         id="email"
                                         type="email"
                                         placeholder="your.email@example.com"
+                                        {...register("email")}
                                     />
                                 </div>
 
@@ -153,6 +183,7 @@ const Contact = () => {
                                         id="phone"
                                         type="tel"
                                         placeholder="+250 XXX XXX XXXX"
+                                        {...register("phone")}
                                     />
                                 </div>
 
@@ -167,15 +198,16 @@ const Contact = () => {
                                         id="message"
                                         placeholder="Please share your message or questions..."
                                         rows={6}
+                                        {...register("message")}
                                     />
                                 </div>
 
-                                <Button size="lg" className="w-full">
-                                    Send Message
+                                <Button size="lg" className="w-full" type="submit">
+                                    {loading ? "Sending..." : "Send Message"}
                                 </Button>
                             </CardContent>
                         </Card>
-                    </div>
+                    </form>
                 </div>
             </div>
         </section>

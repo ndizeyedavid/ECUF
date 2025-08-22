@@ -3,4 +3,6 @@ export interface Video {
     youtubeLink: string;
     title: string;
     description: any;
+    created: Date;
+    updated: Date;
 }
