@@ -9,6 +9,7 @@ import {
     Settings,
     LogOut,
     Video,
+    Menu,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -87,11 +88,27 @@ const Dashboard = () => {
             <Sidebar activeTab={activeTab} setActiveTab={setActiveTab} />
             {/* Main Content */}
             <div className="flex-1 overflow-auto">
-                <div className="p-8">
-                    <Tabs value={activeTab} className="space-y-6">
-                        <TabsContent value="overview" className="space-y-6">
-                            <h2 className="text-3xl font-bold">Dashboard Overview</h2>
-                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <Button
+                    variant="ghost"
+                    size="icon"
+                    className="lg:hidden"
+                    onClick={() =>
+                        document
+                            .getElementById("mobile-sidebar")
+                            ?.classList.toggle("translate-x-[0px]")
+                    }
+                >
+                    <Menu className="size-7" />
+                </Button>
+                <div className="p-4 sm:p-6 lg:p-8">
+                    <Tabs value={activeTab} className="space-y-4 sm:space-y-6">
+                        <TabsContent value="overview" className="space-y-4 sm:space-y-6">
+                            <div className="flex items-center justify-between">
+                                <h2 className="text-2xl sm:text-3xl font-bold">
+                                    Dashboard Overview
+                                </h2>
+                            </div>
+                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
                                 {stats.map((stat, index) => (
                                     <Card key={index}>
                                         <CardHeader className="flex flex-row items-center justify-between pb-2">
@@ -101,7 +118,7 @@ const Dashboard = () => {
                                             {stat.icon}
                                         </CardHeader>
                                         <CardContent>
-                                            <div className="text-2xl font-bold">
+                                            <div className="text-xl sm:text-2xl font-bold">
                                                 {loading ? "Loading..." : stat.value}
                                             </div>
                                             <p className="text-xs text-muted-foreground">

@@ -41,9 +41,9 @@ export default function MessagesPanel() {
     }
 
     return (
-        <div className="flex h-[calc(100vh-8rem)] gap-4 p-4">
+        <div className="flex flex-col md:flex-row h-[calc(100vh-8rem)] gap-4 p-4">
             {/* Messages Sidebar */}
-            <div className="w-80 flex flex-col bg-card rounded-lg border">
+            <div className="w-full flex flex-col bg-card rounded-lg border">
                 <div className="p-4 border-b">
                     <h2 className="text-lg font-semibold">Messages</h2>
                     <p className="text-sm text-muted-foreground">
