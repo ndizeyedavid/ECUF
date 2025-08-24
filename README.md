@@ -37,6 +37,3 @@ To run this website locally:
 
 We welcome contributions from our church community! Please read our contributing guidelines before submitting any changes.
 
-## Contact
-
-For any questions or concerns about the website, please contact our tech team at [ecuf@gmail.com](mailto:ecuf@gmail.com)
