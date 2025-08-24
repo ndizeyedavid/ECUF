@@ -16,50 +16,52 @@ import {
 import { Input } from "@/components/ui/input";
 import { Switch } from "@/components/ui/switch";
 import { useToast } from "@/components/ui/use-toast";
+import pb from "@/lib/pb";
+import { useNavigate } from "react-router-dom";
 
 const formSchema = z.object({
-  siteName: z.string().min(1, "Site name is required"),
-  siteEmail: z.string().email("Invalid email address"),
-  sitePhone: z.string().min(1, "Phone number is required"),
-  address: z.string().min(1, "Address is required"),
-  enableRegistration: z.boolean(),
-  enableNotifications: z.boolean(),
-  maintenanceMode: z.boolean(),
+  email: z.string().email(),
+  oldPassword: z.string(),
+  password: z.string(),
+  passwordConfirm: z.string(),
 });
 
 type FormValues = z.infer<typeof formSchema>;
 
-const SettingsPanel = () => {
+const AccountPanel = () => {
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
+  const navigate = useNavigate();
 
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      siteName: "ECUF Church",
-      siteEmail: "contact@ecuf.edu.ng",
-      sitePhone: "+234 123 4567",
-      address: "123 Church Street, Lagos",
-      enableRegistration: true,
-      enableNotifications: true,
-      maintenanceMode: false,
+      email: pb.authStore.record.email,
+      oldPassword: "",
+      password: "",
+      passwordConfirm: "",
     },
   });
 
   const onSubmit = async (data: FormValues) => {
     setIsLoading(true);
     try {
-      // TODO: Implement settings update logic
       console.log("Updating settings:", data);
+
+      await pb.collection("_superusers").update(pb.authStore.record.id, data);
+
       toast({
         title: "Success",
-        description: "Settings updated successfully",
+        description: "Settings updated successfully now Login in to confirm",
       });
+      navigate("/admin/login");
     } catch (error) {
+      console.error(error.response);
       toast({
         variant: "destructive",
         title: "Error",
-        description: "Failed to update settings",
+        description:
+          "Failed to update settings, Check if new password and confirm password are the same and above 6 characters",
       });
     } finally {
       setIsLoading(false);
@@ -69,12 +71,12 @@ const SettingsPanel = () => {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h2 className="text-3xl font-bold">Settings</h2>
+        <h2 className="text-3xl font-bold">Account</h2>
       </div>
 
       <Card>
         <CardHeader>
-          <CardTitle>Website Settings</CardTitle>
+          <CardTitle>Login information</CardTitle>
         </CardHeader>
         <CardContent>
           <Form {...form}>
@@ -82,10 +84,10 @@ const SettingsPanel = () => {
               <div className="space-y-4">
                 <FormField
                   control={form.control}
-                  name="siteName"
+                  name="email"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Site Name</FormLabel>
+                      <FormLabel>Email</FormLabel>
                       <FormControl>
                         <Input {...field} />
                       </FormControl>
@@ -95,12 +97,12 @@ const SettingsPanel = () => {
                 />
                 <FormField
                   control={form.control}
-                  name="siteEmail"
+                  name="oldPassword"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Contact Email</FormLabel>
+                      <FormLabel>Old Password</FormLabel>
                       <FormControl>
-                        <Input type="email" {...field} />
+                        <Input type="password" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -108,12 +110,12 @@ const SettingsPanel = () => {
                 />
                 <FormField
                   control={form.control}
-                  name="sitePhone"
+                  name="password"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Contact Phone</FormLabel>
+                      <FormLabel>New Password</FormLabel>
                       <FormControl>
-                        <Input type="tel" {...field} />
+                        <Input type="password" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -121,84 +123,21 @@ const SettingsPanel = () => {
                 />
                 <FormField
                   control={form.control}
-                  name="address"
+                  name="passwordConfirm"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Church Address</FormLabel>
+                      <FormLabel>Confirm Password</FormLabel>
                       <FormControl>
-                        <Input {...field} />
+                        <Input type="password" {...field} />
                       </FormControl>
                       <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              </div>
-
-              <div className="space-y-4">
-                <FormField
-                  control={form.control}
-                  name="enableRegistration"
-                  render={({ field }) => (
-                    <FormItem className="flex items-center justify-between rounded-lg border p-4">
-                      <div className="space-y-0.5">
-                        <FormLabel>Enable Registration</FormLabel>
-                        <FormDescription>
-                          Allow new users to register on the website
-                        </FormDescription>
-                      </div>
-                      <FormControl>
-                        <Switch
-                          checked={field.value}
-                          onCheckedChange={field.onChange}
-                        />
-                      </FormControl>
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="enableNotifications"
-                  render={({ field }) => (
-                    <FormItem className="flex items-center justify-between rounded-lg border p-4">
-                      <div className="space-y-0.5">
-                        <FormLabel>Enable Notifications</FormLabel>
-                        <FormDescription>
-                          Send email notifications for new events and updates
-                        </FormDescription>
-                      </div>
-                      <FormControl>
-                        <Switch
-                          checked={field.value}
-                          onCheckedChange={field.onChange}
-                        />
-                      </FormControl>
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="maintenanceMode"
-                  render={({ field }) => (
-                    <FormItem className="flex items-center justify-between rounded-lg border p-4">
-                      <div className="space-y-0.5">
-                        <FormLabel>Maintenance Mode</FormLabel>
-                        <FormDescription>
-                          Put the website in maintenance mode
-                        </FormDescription>
-                      </div>
-                      <FormControl>
-                        <Switch
-                          checked={field.value}
-                          onCheckedChange={field.onChange}
-                        />
-                      </FormControl>
                     </FormItem>
                   )}
                 />
               </div>
 
               <Button type="submit" disabled={isLoading}>
-                {isLoading ? "Saving..." : "Save Settings"}
+                {isLoading ? "Saving..." : "Update"}
               </Button>
             </form>
           </Form>
@@ -208,4 +147,4 @@ const SettingsPanel = () => {
   );
 };
 
-export default SettingsPanel;
+export default AccountPanel;
